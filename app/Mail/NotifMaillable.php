@@ -23,6 +23,7 @@ class NotifMaillable extends Mailable
     public function build()
     {
         return $this->from($this->notification->from)
+            ->subject($this->notification->subject)
             ->markdown('emails.notif');
     }
 }

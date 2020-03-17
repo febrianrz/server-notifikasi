@@ -43,6 +43,7 @@ class EmailTask extends Command
     {
         $notifications = Notification::where('channel','email')
             ->whereNull('sent_at')
+            ->where('trying_send','<=',5)
             ->orderBy('created_at','asc')
             ->limit(50)->get();
         foreach($notifications as $notif){
