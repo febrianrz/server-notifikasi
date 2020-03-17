@@ -7,7 +7,8 @@ return [
         'redirect_uri'=> ''
     ],
     'url'   => [
-        'auth'  => 'http://localhost:8001'
+        'auth'          => 'https://accounts.alterindonesia.com',
+        'notification'  => 'http://localhost:8002',
     ],
     'endpoint'=> [
         'profile'   => '/api/v1/profile',
