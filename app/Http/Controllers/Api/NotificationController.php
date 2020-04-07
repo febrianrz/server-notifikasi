@@ -16,7 +16,9 @@ class NotificationController extends Controller
 {
     protected $model = Notification::class;
 
-    protected $relationships = [];
+    protected $relationships = [
+        'channel'
+    ];
 
     /**
      * Display a listing of the resource.
@@ -27,7 +29,7 @@ class NotificationController extends Controller
     public function index(Request $request)
     {
         $query = Notification::query();
-
+        $query->select('notifications.*');
         $this->loadRelationships($query);
 
         switch ($request->format) {

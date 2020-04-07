@@ -34,8 +34,8 @@ class ChannelController extends Controller
             case 'select2':
                 return Select2::of(
                     $query->orderBy('id'),
-                    'name',
-                    'id'
+                    'id',
+                    'name'
                 );
 
             case "datatable":

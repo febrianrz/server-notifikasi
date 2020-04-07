@@ -12,6 +12,7 @@
         "febrianrz/makeapi": "^1.0",
         "febrianrz/micromidlleware": "^1.0",
         "fideloper/proxy": "^4.0",
+        "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "~6.0",
         "laravel-notification-channels/telegram": "^0.2.0",
         "laravel/framework": "^6.2",

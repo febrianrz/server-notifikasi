@@ -16,7 +16,9 @@ class TemplateController extends Controller
 {
     protected $model = Template::class;
 
-    protected $relationships = [];
+    protected $relationships = [
+        'channel'
+    ];
 
     /**
      * Display a listing of the resource.
@@ -27,6 +29,7 @@ class TemplateController extends Controller
     public function index(Request $request)
     {
         $query = Template::query();
+        $query->select('templates.*');
 
         $this->loadRelationships($query);
 
@@ -40,32 +43,6 @@ class TemplateController extends Controller
 
             case "datatable":
                 return DataTables::of($query)
-                    ->addColumn('urls', function ($template) {
-                        $urls = [];
-
-                        if (Auth::user()->can('update', $template)) {
-                            $urls['edit'] = route('api.templates.update', [
-                                'template' => $template->id
-                            ]);
-                        }
-
-                        if (Auth::user()->can('delete', $template)) {
-                            $urls['delete'] = route('api.templates.destroy', [
-                                'template' => $template->id
-                            ]);
-                        }
-
-                        return $urls;
-                    })
-                    ->with('urls', function () {
-                        $urls = [];
-
-                        if (Auth::user()->can('create', Template::class)) {
-                            $urls['create'] = route('api.templates.store');
-                        }
-
-                        return $urls;
-                    })
                     ->toJson();
             default:
                     MAHelper::filter($request,$query);

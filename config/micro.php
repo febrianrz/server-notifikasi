@@ -7,7 +7,7 @@ return [
         'redirect_uri'=> ''
     ],
     'url'   => [
-        'auth'          => 'http://localhost:8001',
+        'auth'          => 'http://localhost:8000',
         'notification'  => 'http://localhost:8002',
     ],
     'endpoint'=> [
