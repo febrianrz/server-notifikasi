@@ -7,8 +7,9 @@ return [
         'redirect_uri'=> ''
     ],
     'url'   => [
-        'auth'          => 'http://localhost:8000',
+        'auth'          => 'https://accounts.rumahkepemimpinan.org',
         'notification'  => 'http://localhost:8002',
+        'auth_path'     => ''
     ],
     'endpoint'=> [
         'profile'   => '/api/v1/profile',
