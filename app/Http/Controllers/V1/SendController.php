@@ -34,7 +34,9 @@ class SendController extends Controller
                 $arr = ["email","telegram","web"];
                 if(in_array($key,$arr)){
                     foreach($value as $to){
-                        Notification::firstOrCreate([
+                        Notification::create([
+                            'id' => Uuid::uuid1(),
+                            'attachment'=> $file,
                             'app_id'    => $request->app_id,
                             'channel'   => $key,
                             'to'        =>  $to,
@@ -42,10 +44,6 @@ class SendController extends Controller
                             'subject'   => $request->subject,
                             'body'      => $request->body,
                             'description'=> $request->description
-                        ], [
-
-                            'id' => Uuid::uuid1(),
-                            'attachment'=> $file
                         ]);
                     }
                 }
@@ -98,7 +96,7 @@ class SendController extends Controller
                 $from = $dt['from'] ?? 'system@alterindonesia.com';
                 $notes = $dt['notes'] ?? null;
 
-                Notification::updateOrCreate([
+                Notification::create([
                     'app_id'    => 1,
                     'app'       => null,
                     'channel_id'   => $template->channel_id,
@@ -106,7 +104,6 @@ class SendController extends Controller
                     'to'        =>  $to,
                     'from'      => $from,
                     'subject'   => $title,
-                ],[
                     'is_sending'=> false,
                     'description'=> $notes,
                     'is_queue'  => $queue,
