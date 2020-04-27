@@ -64,6 +64,7 @@ class Notification extends Model
     }
 
     public static function convert($templateHtml, $arrayData){
+        // dd($arrayData);
         foreach($arrayData as $key => $value){
             $templateHtml = str_replace("[{$key}]",$value,$templateHtml);
         }

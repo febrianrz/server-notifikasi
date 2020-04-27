@@ -46,9 +46,22 @@ class EmailTest extends Command
         else {
             $to  = $this->argument('email');
             $this->info('Memulai pengiriman email ke '.$to);
-            $html = Notification::convert(null,$template->template,['email'=>$to]);
-            
-            Mail::to($to)->send(new GlobalMaillable($html));
+        
+            Notification::create([
+                'app_id'    => 1,
+                'app'       => null,
+                'channel_id'   => $template->channel_id,
+                'template_id' => $template->id,
+                'to'        =>  $to,
+                'from'      => env('MAIL_FROM_ADDRESS'),
+                'subject'   => 'Email Testing',
+                'is_sending'=> false,
+                'description'=> 'Email testing deskripsi',
+                'is_queue'  => false,
+                'data'      => [
+                    'email' => $to
+                ],
+            ]);
             
             $this->info('Selesai mengirim email');
         }
