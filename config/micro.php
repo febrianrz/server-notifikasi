@@ -9,7 +9,7 @@ return [
     ],
     'url'   => [
         'auth'          => 'https://accounts.rumahkepemimpinan.org',
-        'notification'  => 'http://localhost:8002',
+        'notification'  => 'https://apis.rumahkepemimpinan.org/notifikasi/public',
     ],
     'endpoint'=> [
         'profile'   => '/api/v1/profile',
