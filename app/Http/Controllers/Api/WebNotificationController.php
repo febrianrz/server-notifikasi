@@ -33,7 +33,7 @@ class WebNotificationController extends Controller
         if($request->has('to') && $request->to){
             $query->where('to',$request->to);
         }
-
+        $query->where('to',$request->user->email);
         switch ($request->format) {
             case "datatable":
                 return DataTables::of($query)
