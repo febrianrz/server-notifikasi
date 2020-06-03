@@ -40,7 +40,7 @@ class GlobalMaillable extends Mailable
         if($this->notification){
             $markdown = $this
                 ->subject($this->notification->subject)
-                ->from($this->notification->from)
+                ->from($this->notification->from,config('notif')['app_name'])
                 ->markdown('emails.global');
 
             if($this->notification->attachment_storage){
