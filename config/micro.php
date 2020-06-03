@@ -8,7 +8,7 @@ return [
         'auth_path'     => ''
     ],
     'url'   => [
-        'auth'          => 'https://accounts.rumahkepemimpinan.org',
+        'auth'          => 'https://accounts.alterindonesia.com',
         'notification'  => 'http://localhost:8002',
     ],
     'endpoint'=> [

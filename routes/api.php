@@ -8,6 +8,8 @@ Route::middleware('auth.micro')->group(function(){
         Route::apiResource('templates','Api\TemplateController');
         Route::apiResource('notifications','Api\NotificationController')->only(['index']);
         Route::get('resend/{id}','V1\SendController@resend');
+
+        Route::apiResource('web-notification','Api\WebNotificationController')->only(['index','store','show']);
     });
 });
 
