@@ -43,5 +43,14 @@ class TemplatesSeeder extends Seeder
             <p><img src="https://alterindonesia.com/front/images/logo.png" width="200" alt="Ini adalah deskripsi gambar"></p>
             ')
         ]);
+
+        Template::updateOrCreate([
+            'channel_id'    => $channel_email->id,
+            'code'          => 'simple_mail'
+        ], [
+            'name'          => 'Testing Email Template',
+            'description'   => 'Template testing email',
+            'template'      => ('[html]')
+        ]);
     }
 }

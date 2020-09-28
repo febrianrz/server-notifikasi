@@ -23,6 +23,7 @@ class Notification extends Model
         'is_queue'  => 'boolean',
         'attachment_request'    => 'json',
         'attachment_storage'    => 'json',
+        'to_user'               => 'json'
     ];
 
     public function channel()
@@ -37,28 +38,22 @@ class Notification extends Model
 
     public function send()
     {
-        if($this->channel->code == "email"){
+        if($this->channel->code == "email" && $this->channel->is_active){
             $this->sendEmail();
         }
     }
 
     private function sendEmail()
     {
-        if($this->channel->code == "email" && $this->channel->is_active){
-            $this->trying_send += 1;
-            try {
-                Mail::to($this->to)->send(new GlobalMaillable($this));
-                $this->response_text = "Email berhasil dikirim";
-                $this->is_sending = true;
-                $this->sent_at = date('Y-m-d H:i:s');    
-                $this->save();
-            } catch(\Exception $e){
-                $this->response_text = $e->getMessage();
-                $this->save();
-            }
-            
-        } else {
-            $this->response_text = "Kode channel email tidak valid atau channel email tidak aktif";
+        $this->trying_send += 1;
+        try {
+            Mail::to($this->to)->send(new GlobalMaillable($this));
+            $this->response_text = "Email berhasil dikirim";
+            $this->is_sending = true;
+            $this->sent_at = date('Y-m-d H:i:s');    
+            $this->save();
+        } catch(\Exception $e){
+            $this->response_text = $e->getMessage();
             $this->save();
         }
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\V1;
 
+use App\Channel;
 use App\Template;
 use App\Notification;
 use Ramsey\Uuid\Uuid;
@@ -142,5 +143,57 @@ class SendController extends Controller
             'message'   => 'Notifikasi telah dikirim',
             'data'      => $notif
         ]);
+    }
+
+    public function simpleSend(Request $request)
+    {
+        $request->validate([
+            'type'  => 'required|in:email',
+            'to'    => 'required',
+            'subject'=> 'required|string|max:256',
+            'message'=> 'required|string',
+            'project_id'=> 'required'
+        ]);
+        if($request->type == "email"){
+            return $this->simpleSendEmail($request);
+        }
+    }
+
+    public function simpleSendEmail($request)
+    {
+        try {
+            DB::beginTransaction();
+            $channel = Channel::where('code','email')->firstOrFail();
+            $template = Template::where('code','simple_mail')->firstOrFail();
+            Notification::create([
+                'app_id'    => 1,
+                'app'       => null,
+                'project_id'=> $request->project_id,
+                'channel_id'   => $channel->id,
+                'template_id' => $template->id,
+                'to'        =>  $request->to,
+                'from'      => env('MAIL_FROM_ADDRESS'),
+                'subject'   => $request->subject,
+                'is_sending'=> false,
+                'description'=> 'Simple Send',
+                'is_queue'  => false,
+                'data'      => [
+                    'html'  => $request->message,
+                ],
+                'to_id'     => $request->user->id,
+                'to_user'   => [
+                    'name'  => $request->user->name,
+                    'email' => $request->user->email,
+                    'phone' => $request->user->phone
+                ]
+            ]);
+            DB::commit();
+            return response()->json([
+                'message'   => 'Email berhasil dikirim'
+            ]);
+        } catch(\Exception $e){
+            DB::rollback();
+            return abort(400,$e->getMessage());
+        }
     }
 }

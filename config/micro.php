@@ -8,7 +8,7 @@ return [
         'auth_path'     => ''
     ],
     'url'   => [
-        'auth'          => 'https://accounts.alterindonesia.com',
+        'auth'          => 'https://satuakun.id',
         'notification'  => 'http://localhost:8002',
     ],
     'endpoint'=> [
