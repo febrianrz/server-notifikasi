@@ -8,7 +8,7 @@ return [
         'auth_path'     => ''
     ],
     'url'   => [
-        'auth'          => 'https://satuakun.id',
+        'auth'          => 'https://accounts.pasaraset.com',
         'notification'  => 'http://localhost:8002',
     ],
     'endpoint'=> [
