@@ -177,9 +177,7 @@ class SendController extends Controller
                 'is_sending'=> false,
                 'description'=> 'Simple Send',
                 'is_queue'  => false,
-                'data'      => [
-                    'html'  => $request->message,
-                ],
+                'body'      => $request->message,
                 'to_id'     => $request->user->id,
                 'to_user'   => [
                     'name'  => $request->user->name,

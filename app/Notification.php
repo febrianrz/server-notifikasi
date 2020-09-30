@@ -4,6 +4,7 @@ namespace App;
 
 use Webpatser\Uuid\Uuid;
 use App\Mail\GlobalMaillable;
+use App\Mail\GlobalMaillable2;
 use Febrianrz\Makeapi\HasUUID;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Database\Eloquent\Model;
@@ -47,7 +48,12 @@ class Notification extends Model
     {
         $this->trying_send += 1;
         try {
-            Mail::to($this->to)->send(new GlobalMaillable($this));
+            if($this->template->code == 'simple_mail'){
+                Mail::to($this->to)->send(new GlobalMaillable2($this));
+            } else {
+                Mail::to($this->to)->send(new GlobalMaillable($this));
+            }
+            
             $this->response_text = "Email berhasil dikirim";
             $this->is_sending = true;
             $this->sent_at = date('Y-m-d H:i:s');    
