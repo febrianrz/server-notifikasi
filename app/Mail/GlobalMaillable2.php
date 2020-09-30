@@ -32,6 +32,8 @@ class GlobalMaillable2 extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.global2');
+        return $this->subject($this->notification->subject)
+            ->from($this->notification->from,config('notif')['app_name'])
+            ->markdown('emails.global2');
     }
 }
